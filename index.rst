@@ -1,58 +1,58 @@
-.. title:: Nutanix AOS and AHV Bootcamp
+.. title:: Nutanix Orientation for vSphere Administrators
 
 .. toctree::
-  :maxdepth: 2
-  :caption: Nutanix Configuration
-  :name: _nutanix_configuration
-  :hidden:
+   :maxdepth: 2
+   :caption: Nutanix Configuration
+   :name: _configuration_labs
+   :hidden:
 
-  lab_nutanix_tech_overview/lab_nutanix_tech_overview
-  lab_storage_configuration/lab_storage_configuration
-  lab_network_configuration/lab_network_configuration
-
-.. toctree::
-  :maxdepth: 2
-  :caption: Deploying and Managing Workloads
-  :name: _deploying_and_managing_workloads
-  :hidden:
-
-  lab_deploy_workloads/lab_deploy_workloads
-  lab_manage_workloads/lab_manage_workloads
-  lab_data_protection/lab_data_protection
+   nutanixTechOverviewLab/nutanixTechOverviewLab
+   storageConfiguration/storageConfiguration
 
 .. toctree::
-  :maxdepth: 2
-  :caption: Optional Labs
-  :name: _optional_labs
-  :hidden:
+   :maxdepth: 2
+   :caption: Workloads
+   :name: _workload_labs
+   :hidden:
+
+   deployingWorkloads/deployingWorkloads
+   managingWorkloads/managingWorkloads
 
 .. toctree::
-  :maxdepth: 2
-  :caption: Example Labs
-  :name: _example_labs
-  :hidden:
+   :maxdepth: 2
+   :caption: Nutanix Operations
+   :name: _operations_labs
+   :hidden:
 
-  examplelab1/examplelab1
-  examplelab2/examplelab2
-  examplelab3/examplelab3
-
-.. toctree::
-  :maxdepth: 2
-  :caption: Optional Labs
-  :name: _optional_labs
-  :hidden:
-
-  examplelab3/examplelab3
+   cvm/cvm
+   healthNccLogs/healthNccLogs
+   ipmi/ipmi
 
 .. toctree::
-  :maxdepth: 2
-  :caption: Appendix
-  :name: _appendix
-  :hidden:
+   :maxdepth: 2
+   :caption: Data Protection 
+   :name: _dp_labs
+   :hidden:
+ 
+   ssr/ssr
+   dataProtection/dataProtection
 
-  tools_vms/windows_tools_vm
-  tools_vms/linux_tools_vm
-  appendix/glossary
+.. toctree::  
+   :maxdepth: 2
+   :caption: Optional Reading
+   :name: _optional_labs
+   :hidden:   
+    
+   readingLab1/readingLab1
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Appendix
+   :name: _appendix
+   :hidden:
+        
+   appendix/glossary
+   frame/frame
 
 .. _getting_started:
 
@@ -60,19 +60,17 @@
 Getting Started
 ---------------
 
-Welcome to the Nutanix AOS and AHV Bootcamp! This workbook accompanies an instructor-led session that introduces Nutanix Core technologies and many common management tasks.
+Welcome to the Nutanix Orientation for vSphere Administrators Bootcamp! This workbook accompanies an instructor-led session that introduces Nutanix technologies and common management tasks. Each section has a lesson and one or more lab exercises to give you hands-on practice. The instructor explains the exercises and answers any additional questions that you may have.
 
-You will explore Prism Element and become familiar with its features and navigation. You will use Prism to perform basic cluster administration tasks, including storage and networking. You will also walk through basic VM deployment and management tasks with Prism and AHV. Finally, you will explore VM data protection, including snapshots and replication. The instructor explains the exercises and answers any additional questions that you may have.
+At the end of the bootcamp, attendees should understand the basic concepts and technologies that make up the Nutanix system and how it operates with vCenter and ESXi as the hypervisor.
 
-At the end of the bootcamp, attendees should understand the Core concepts and technologies that make up the Nutanix Enterprise Cloud stack and should be well prepared for a hosted or onsite proof-of-concept (POC) engagement.
+A working knowledge of vSphere operations is assumed, such as how to deploy a VM from a template and work with datastores.
 
 What's New
 ++++++++++
 
-- Workshop updated for the following software versions:
-    - AOS & PC 5.11.2.x
-
-- Optional Lab Updates:
+- This workshop, we often call then "bootcamps" is new and focusses on how vSphere integrates with Nutanix.
+    - AOS 5.19.x, vCenter/vSphere 6.5u1
 
 
 Agenda
@@ -82,6 +80,7 @@ Agenda
 - Nutanix Presentation
 - Nutanix Configuration Labs
 - Deploying and Managing Workloads Labs
+- (Optional) Reading - vCenter/vSphere Setup for Nutanix
 
 Introductions
 +++++++++++++
@@ -108,18 +107,21 @@ Hosted POC clusters follow a standard naming convention:
 - **Cluster Name** - POC\ *XYZ*
 - **Subnet** - 10.**21**.\ *XYZ*\ .0
 - **Cluster IP** - 10.**21**.\ *XYZ*\ .37
+- **vCenter IP** - 10.**21**.\ *XYZ*\ .40
 
 If provisioned from the marketing pool:
 
 - **Cluster Name** - MKT\ *XYZ*
 - **Subnet** - 10.**20**.\ *XYZ*\ .0
 - **Cluster IP** - 10.**20**.\ *XYZ*\ .37
+- **vCenter IP** - 10.**20**.\ *XYZ*\ .40
 
 For example:
 
 - **Cluster Name** - POC055
 - **Subnet** - 10.21.55.0
 - **Cluster IP** - 10.21.55.37
+- **vCenter IP** - 10.21.55.40
 
 Throughout the Workshop there are multiple instances where you will need to substitute *XYZ* with the correct octet for your subnet, for example:
 
@@ -130,11 +132,9 @@ Throughout the Workshop there are multiple instances where you will need to subs
    * - IP Address
      - Description
    * - 10.21.\ *XYZ*\ .37
-     - Nutanix Cluster Virtual IP
-   * - 10.21.\ *XYZ*\ .39
-     - **PC** VM IP, Prism Central
+     - Prism ELement, aka PE, aka Nutanix Cluster Virtual IP, aka VIP
    * - 10.21.\ *XYZ*\ .40
-     - **DC** VM IP, NTNXLAB.local Domain Controller
+     - **vCenter** VM IP
 
 Each cluster is configured with 2 VLANs which can be used for VMs:
 
@@ -172,46 +172,12 @@ Credentials
    * - Prism Element
      - admin
      - *<Cluster Password>*
-   * - Prism Central
-     - admin
+   * - vCenter
+     - administrator@vsphere.local
      - *<Cluster Password>*
    * - Controller VM
      - nutanix
      - *<Cluster Password>*
-   * - Prism Central VM
-     - nutanix
-     - *<Cluster Password>*
-
-Each cluster has a dedicated domain controller VM, **DC**, responsible for providing AD services for the **NTNXLAB.local** domain. The domain is populated with the following Users and Groups:
-
-.. list-table::
-   :widths: 25 35 40
-   :header-rows: 1
-
-   * - Group
-     - Username(s)
-     - Password
-   * - Administrators
-     - Administrator
-     - nutanix/4u
-   * - SSP Admins
-     - adminuser01-adminuser25
-     - nutanix/4u
-   * - SSP Developers
-     - devuser01-devuser25
-     - nutanix/4u
-   * - SSP Consumers
-     - consumer01-consumer25
-     - nutanix/4u
-   * - SSP Operators
-     - operator01-operator25
-     - nutanix/4u
-   * - SSP Custom
-     - custom01-custom25
-     - nutanix/4u
-   * - Bootcamp Users
-     - user01-user25
-     - nutanix/4u
 
 Access Instructions
 +++++++++++++++++++
@@ -277,6 +243,5 @@ For RTP:
 Nutanix Version Info
 ++++++++++++++++++++
 
-- **AHV Version** - AHV 20170830.337
-- **AOS Version** - 5.11.2.3
-- **PC Version** - 5.11.2.1
+- **AOS Version** - 5.18.x
+- **vCenter/vSphere Version** - 6.5u1
