@@ -66,7 +66,7 @@ At the end of the bootcamp, attendees should understand the basic concepts and t
 
 A working knowledge of vSphere operations is assumed, such as how to deploy a VM from a template and work with datastores.
 
-What's New
+What's New 
 ++++++++++
 
 - This workshop, we often call then "bootcamps" is new and focusses on how vSphere integrates with Nutanix.
@@ -86,7 +86,7 @@ Introductions
 +++++++++++++
 
 - Name
-- Familiarity with Nutanix
+- Familiarity with Nutanix 
 
 Initial Setup
 +++++++++++++
@@ -244,4 +244,4 @@ Nutanix Version Info
 ++++++++++++++++++++
 
 - **AOS Version** - 5.18.x
-- **vCenter/vSphere Version** - 6.5u1
+- **vCenter/vSphere Version** - 6.5u1 

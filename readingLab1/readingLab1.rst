@@ -5,6 +5,10 @@ Overview
 --------
 The Acropolis OS (AOS) is essentially the Nutanix solution, as you know by now AOS runs in every Contoller VM (CVM) in the Nutanix cluster.
 
+.. figure:: images/dsf_overview.png 
+
+DSF is the Distributed Storage Fabric.
+
 Each CVM is a CentOS VM and is a standard ESXi user space VM, all the CVMs communicate with each other to provide storage (and other) services to the 
 collective ESXi servers managed by vCenter.  
 
@@ -23,7 +27,7 @@ Bear this in mind as we summarise vSphere Cluster settings:
 vSphere HA Settings
 -------------------
 - Enable host monitoring.
-- Enable admission control and use the percentage-based policy, with a value based on the number of nodes in the cluster. For more information about settings of percentage of cluster resources reserved as failover spare capacity, vSphere HA Admission Control Settings for Nutanix Environment.
+- Enable admission control and use the percentage-based policy, with a value based on the number of nodes in the cluster. For more information about settings of percentage of cluster resources reserved as failover spare capacity, see the vSphere HA Admission Control Settings for Nutanix Environment in the manual linked to later.
 - Set the VM Restart Priority of all Controller VMs to Disabled.
 - Set the Host Isolation Response of the cluster to Power Off.
 - Set the Host Isolation Response of all Controller VMs to Disabled.

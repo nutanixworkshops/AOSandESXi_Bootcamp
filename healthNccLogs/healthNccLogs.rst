@@ -160,62 +160,70 @@ Login to any CVM (or VIP) – please see the CVM Lab for guidance
 
 Type
 nutanix@cvm$ ncc health_checks run_all
-which will run all 300+ checks or you can run individual checks or a set of check – here’s how to run the networking checks and associated output
-nutanix@NTNX-15SM65450323-A-CVM $ ncc health_checks network_checks
-+----------------------------------------------------------------------------------------------------------------------+
-| Type | Name                                 | Impact        | Short help                                             |
-+----------------------------------------------------------------------------------------------------------------------+
-| P    | 10gbe_check                          | Non-Intrusive | Checks if 10GB ethernet NIC is being used correctly    |
-| P    | check_dvs_esxi_version_compatibility | Non-Intrusive | Check if DVS is being used on an affected ESXi version |
-|      |                                      |               | - ESXi 6.0GA,U1,U2,U3 and 6.5GA                        |
-| P    | check_network_segmentation_enabled   | Non-Intrusive | Check if network segmentation enabled on cluster with  |
-|      |                                      |               | AOS less then 5.5                                      |
-| P    | check_network_switch                 | Non-Intrusive | Checks if network switches are configured properly.    |
-| P    | check_ntp                            | Non-Intrusive | Checks if NTP is configured and syncing correctly.     |
-| P    | check_unsupported_sfp                | Non-Intrusive | Checks if unsupported SFP is plugged in.               |
-| P    | cvm_dvportgroup_binding_check        | Non-Intrusive | Recommends static binding against ephemeral binding    |
-|      |                                      |               | for dvPortGroups                                       |
-| P    | cvm_mtu_check                        | Non-Intrusive | Checks if CVM MTU is set properly.                     |
-| P    | cvm_mtu_uniformity_check             | Non-Intrusive | Checks that each CVM's management interface has the    |
-|      |                                      |               | same MTU                                               |
-| P    | cvm_time_drift_check                 | Non-Intrusive | Checks if the time drift between CVMs is less than the |
-|      |                                      |               | 3 seconds.                                             |
-| P    | duplicate_cvm_ip_check               | Non-Intrusive | Checks if CVM IPs have been duplicated in the network. |
-| P    | duplicate_hypervisor_ip_check        | Non-Intrusive | Checks if Hypervisor IPs have been duplicated in the   |
-|      |                                      |               | network.                                               |
-| P    | ha_py_rerouting_check                | Non-Intrusive | Checks if that ha.py rerouting is not engaged          |
-| P    | help_opts                            | Non-Intrusive | Show various options for this module.                  |
-| P    | host_cvm_subnets_check               | Non-Intrusive | Checks if host and CVM share the same subnet           |
-| P    | host_nic_error_check                 | Non-Intrusive | Checks if each NIC has fewer than 1.000000% crc errors |
-|      |                                      |               | and 1.000000% rx missed errors during span of          |
-|      |                                      |               | execution of (3600 seconds).                           |
-| P    | host_pingable_check                  | Non-Intrusive | Checks if all host ips are pingable                    |
-| P    | inter_cvm_connections_check          | Non-Intrusive | Checks if all CVMs are reachable via ping              |
-| P    | inter_cvm_ping_latency_check         | Non-Intrusive | Checks ping times between CVMs                         |
-| P    | mellanox_nic_driver_version_check    | Non-Intrusive | Checks if Mellanox port NIC driver version is above    |
-|      |                                      |               | min recommended version                                |
-| P    | mellanox_nic_mixed_family_check      | Non-Intrusive | Checks Mellanox NIC Family                             |
-| P    | mellanox_nic_status_check            | Non-Intrusive | Checks Mellanox NIC Status                             |
-| P    | ndp_check                            | Non-Intrusive | Checks if the NDP(Nutanix Discovery Protocol) works in |
-|      |                                      |               | the cvm external network                               |
-| P    | nic_flaps_check                      | Non-Intrusive | Checks if any nic is flapping.                         |
-| P    | nic_link_down_check                  | Non-Intrusive | Checks if any nic is down.                             |
-| P    | ns_config_consistency_check          | Non-Intrusive | Checks if host bridge/vswitch configuration matches NS |
-|      |                                      |               | config in zookeeper                                    |
-| P    | quad_nic_driver_version_check        | Non-Intrusive | Checks if Quad port NIC driver version is above min    |
-|      |                                      |               | recommended version                                    |
-| M    | switch_checks                        | N/A           | Network switch related checks                          |
-| P    | zeus_config_ip_address_check         | Non-Intrusive | Checks if CVM/Hypervisor/IPMI IP addresses are in sync |
-|      |                                      |               | with zeus configuration                                |
-| P    | run_all                              | Non-Intrusive | Run all non-intrusive plugins in this module           |
-+----------------------------------------------------------------------------------------------------------------------+
-nutanix@NTNX-15SM65450323-A-CVM:10.42.9.29:~$
+which will run all 600+ checks or you can run individual checks or a set of check – here’s how to run the networking checks and associated output
+
+Sample output::
+
+    nutanix@NTNX-15SM65450323-A-CVM $ ncc health_checks network_checks
+    +----------------------------------------------------------------------------------------------------------------------+
+    | Type | Name                                 | Impact        | Short help                                             |
+    +----------------------------------------------------------------------------------------------------------------------+
+    | P    | 10gbe_check                          | Non-Intrusive | Checks if 10GB ethernet NIC is being used correctly    |
+    | P    | check_dvs_esxi_version_compatibility | Non-Intrusive | Check if DVS is being used on an affected ESXi version |
+    |      |                                      |               | - ESXi 6.0GA,U1,U2,U3 and 6.5GA                        |
+    | P    | check_network_segmentation_enabled   | Non-Intrusive | Check if network segmentation enabled on cluster with  |
+    |      |                                      |               | AOS less then 5.5                                      |
+    | P    | check_network_switch                 | Non-Intrusive | Checks if network switches are configured properly.    |
+    | P    | check_ntp                            | Non-Intrusive | Checks if NTP is configured and syncing correctly.     |
+    | P    | check_unsupported_sfp                | Non-Intrusive | Checks if unsupported SFP is plugged in.               |
+    | P    | cvm_dvportgroup_binding_check        | Non-Intrusive | Recommends static binding against ephemeral binding    |
+    |      |                                      |               | for dvPortGroups                                       |
+    | P    | cvm_mtu_check                        | Non-Intrusive | Checks if CVM MTU is set properly.                     |
+    | P    | cvm_mtu_uniformity_check             | Non-Intrusive | Checks that each CVM's management interface has the    |
+    |      |                                      |               | same MTU                                               |
+    | P    | cvm_time_drift_check                 | Non-Intrusive | Checks if the time drift between CVMs is less than the |
+    |      |                                      |               | 3 seconds.                                             |
+    | P    | duplicate_cvm_ip_check               | Non-Intrusive | Checks if CVM IPs have been duplicated in the network. |
+    | P    | duplicate_hypervisor_ip_check        | Non-Intrusive | Checks if Hypervisor IPs have been duplicated in the   |
+    |      |                                      |               | network.                                               |
+    | P    | ha_py_rerouting_check                | Non-Intrusive | Checks if that ha.py rerouting is not engaged          |
+    | P    | help_opts                            | Non-Intrusive | Show various options for this module.                  |
+    | P    | host_cvm_subnets_check               | Non-Intrusive | Checks if host and CVM share the same subnet           |
+    | P    | host_nic_error_check                 | Non-Intrusive | Checks if each NIC has fewer than 1.000000% crc errors |
+    |      |                                      |               | and 1.000000% rx missed errors during span of          |
+    |      |                                      |               | execution of (3600 seconds).                           |
+    | P    | host_pingable_check                  | Non-Intrusive | Checks if all host ips are pingable                    |
+    | P    | inter_cvm_connections_check          | Non-Intrusive | Checks if all CVMs are reachable via ping              |
+    | P    | inter_cvm_ping_latency_check         | Non-Intrusive | Checks ping times between CVMs                         |
+    | P    | mellanox_nic_driver_version_check    | Non-Intrusive | Checks if Mellanox port NIC driver version is above    |
+    |      |                                      |               | min recommended version                                |
+    | P    | mellanox_nic_mixed_family_check      | Non-Intrusive | Checks Mellanox NIC Family                             |
+    | P    | mellanox_nic_status_check            | Non-Intrusive | Checks Mellanox NIC Status                             |
+    | P    | ndp_check                            | Non-Intrusive | Checks if the NDP(Nutanix Discovery Protocol) works in |
+    |      |                                      |               | the cvm external network                               |
+    | P    | nic_flaps_check                      | Non-Intrusive | Checks if any nic is flapping.                         |
+    | P    | nic_link_down_check                  | Non-Intrusive | Checks if any nic is down.                             |
+    | P    | ns_config_consistency_check          | Non-Intrusive | Checks if host bridge/vswitch configuration matches NS |
+    |      |                                      |               | config in zookeeper                                    |
+    | P    | quad_nic_driver_version_check        | Non-Intrusive | Checks if Quad port NIC driver version is above min    |
+    |      |                                      |               | recommended version                                    |
+    | M    | switch_checks                        | N/A           | Network switch related checks                          |
+    | P    | zeus_config_ip_address_check         | Non-Intrusive | Checks if CVM/Hypervisor/IPMI IP addresses are in sync |
+    |      |                                      |               | with zeus configuration                                |
+    | P    | run_all                              | Non-Intrusive | Run all non-intrusive plugins in this module           |
+    +----------------------------------------------------------------------------------------------------------------------+
+    nutanix@NTNX-15SM65450323-A-CVM:10.42.9.29:~$
 
 Depending on the size of your cluster, this command may take 30 minutes to complete execution (if you use the run_all option). During this execution, you will see a series of checks and statuses in the terminal window. This output is saved to a file after the NCC is complete.
-Once the NCC check completes, the following message is displayed.
-Plugin output is written to /home/nutanix/data/logs/ncc-output-latest.log
-If required you can upload this file to the Nutanix support sftp server, if Windows is your workcation then use a tool like WinSCP to do this.  Target Nutanix sftp servers and full instructions are always provided whenever you open a Nutanix Support Request (SR)
-This KB article describes the process in detail with screenshots for Macs and Windows
-https://portal.nutanix.com/page/documents/kbs/details?targetId=kA032000000986SCAQ
+
+Once the NCC check completes, the following message is displayed. ::
+
+    Plugin output is written to /home/nutanix/data/logs/ncc-output-latest.log
+    If required you can upload this file to the Nutanix support sftp server, if Windows is your workstation 
+    then use a tool like WinSCP to do this.  
+    
+Target Nutanix sftp servers and full instructions are always provided whenever you open a Nutanix Support Request (SR)
+    
+This KB article describes the process in detail with screenshots for Macs and Windows https://portal.nutanix.com/page/documents/kbs/details?targetId=kA032000000986SCAQ
   
 
